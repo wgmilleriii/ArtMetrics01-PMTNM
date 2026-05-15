@@ -285,6 +285,14 @@ rows = [
      "6-month obstruction of access to governing documents is itself a governance violation. Compound with financial records refusal.",
      "Documented"),
 
+    ("R-04", "Date of distribution unknown (referenced in 'PMTNM. LIST AND EMAIL ADDRESSES' thread)", "Inaccurate Credential Documentation", "Records + Governance",
+     "MEDIUM", "Jeanne Grealish",
+     "Nonprofit record-keeping standards; Accuracy of member status documentation; Fiduciary duty to maintain accurate organizational records; MTNA credential verification",
+     "PMTNM's official internal member list ('PMTNM. LIST AND EMAIL ADDRESSES') lists Sharon Kunitz as 'NCTM' (National Certified Teacher of Music). Official MTNA data (MTNAData.csv, dated 2024) shows Sharon Kunitz with a blank DESIGNATION field — no NCTM credential listed. By contrast, verified NCTMs in the same MTNA dataset (Jeanne Grealish, Cheryl Pachak-Brooks, and others) all display 'NCTM' in the DESIGNATION field. NCTM is an earned honor from MTNA requiring ongoing fees and maintenance. Sharon either never attained the credential, allowed it to lapse, or failed to renew. Grealish, as Executive Secretary-Treasurer responsible for accurate member records, circulated an official organizational document misrepresenting Sharon's status. This is particularly problematic because: (1) it damages organizational credibility with external parties, (2) it reflects the pattern of inaccurate record-keeping by Grealish (R-01, R-02, R-03, M-04), and (3) it involves Sharon, who has been Grealish's consistent supporter on the board despite receiving scholarship funds controlled by Grealish (S-01).",
+     "Official MTNA data (MTNAData.csv): Sharon Kunitz (row 40) shows blank DESIGNATION field vs. Jeanne Grealish (row 30) and Cheryl Pachak-Brooks (row 52) both showing 'NCTM' in DESIGNATION field; PMTNM internal member list email thread ('PMTNM. LIST AND EMAIL ADDRESSES'): lists Sharon as NCTM; Email attachment: 'Email addresses (2).xlsx' showing same false NCTM designation for Sharon",
+     "False representation of member credentials in official organizational documentation. Pattern of inaccurate EST record-keeping. Damages organizational credibility. Misrepresentation could affect external perceptions of PMTNM's accuracy and governance.",
+     "Documented — MTNA data vs. PMTNM internal list verified"),
+
     ("R-02", "Nov 7, 2025 → Mar 9, 2026", "Records Distribution", "Governance",
      "HIGH", "Jeanne Grealish",
      "Standard nonprofit governance — minutes should be distributed within 30-60 days; PMTNM handbook on minutes distribution",
@@ -573,6 +581,7 @@ persons = [
         ("R-01", "Handbook withheld for 6 months; falsely claimed online availability"),
         ("R-02", "Nov 7 minutes distributed 4 months late — after petition filed"),
         ("R-03", "Spring 2025 minutes not distributed for 7 months"),
+        ("R-04", "Official member list ('PMTNM. LIST AND EMAIL ADDRESSES') lists Sharon Kunitz as NCTM — contradicted by official MTNA data showing no NCTM designation; pattern of inaccurate record-keeping"),
     ]),
     ("Larry Blind (Past President / NMSM Owner)", PURPLE_BG, PURPLE_TXT, [
         ("L-01", "TOTY manipulation: used business email to solicit votes for his own employee Tatiana"),
