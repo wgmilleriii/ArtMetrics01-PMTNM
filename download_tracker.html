@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NM Arts Org NM AG Registration Download Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #2563eb;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        .org-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 15px;
+        }
+        .org-card {
+            background: #f9f9f9;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 15px;
+            transition: all 0.2s ease;
+        }
+        .org-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-color: #2563eb;
+        }
+        .org-card.downloaded {
+            background: #f0fdf4;
+            border-color: #22c55e;
+        }
+        .org-card input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .org-name {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .org-name input {
+            cursor: pointer;
+        }
+        .org-meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 10px;
+        }
+        .org-meta span {
+            display: flex;
+            align-items: center;
+        }
+        .org-link {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+        .org-link:hover {
+            background: #1d4ed8;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #22c55e;
+            transition: width 0.3s ease;
+        }
+        .category-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #1e40af;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 NM Arts Org Download Tracker</h1>
+        <p class="subtitle">NM Attorney General Charitable Organization Registration Statements</p>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">Total Organizations</div>
+                <div class="stat-value" id="total">21</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Downloaded</div>
+                <div class="stat-value" id="downloaded">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Remaining</div>
+                <div class="stat-value" id="remaining">21</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Progress</div>
+                <div class="stat-value" id="percent">0%</div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="instructions">
+            <strong>How to download:</strong>
+            <ol>
+                <li>Check the box next to each org as you download it</li>
+                <li>Click the link to open the NM AG portal</li>
+                <li>Search for the FEIN (9-digit number)</li>
+                <li>Find the target tax year and download the PDF</li>
+                <li>Save as: <code>{OrgName}_{FEIN}_{TaxYear}.pdf</code></li>
+                <li>Store in: <code>sample_orgs/</code> folder</li>
+            </ol>
+        </div>
+
+        <!-- Dance/Ballet -->
+        <div class="section">
+            <div class="section-title">💃 Dance/Ballet (4)</div>
+            <div class="org-grid">
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="nmballet">
+                        New Mexico Ballet Company
+                    </div>
+                    <div class="category-badge">Ballet</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 023247909</span>
+                        <span><strong>Year:</strong> 2024</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=023247909" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="keshet">
+                        Keshet Dance Company
+                    </div>
+                    <div class="category-badge">Dance</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850436623</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850436623" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="festival">
+                        Festival Ballet Albuquerque
+                    </div>
+                    <div class="category-badge">Ballet</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850415044</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850415044" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="ndi">
+                        National Dance Institute NM
+                    </div>
+                    <div class="category-badge">Dance</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850431846</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850431846" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theater -->
+        <div class="section">
+            <div class="section-title">🎭 Theater (5)</div>
+            <div class="org-grid">
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="sfopera">
+                        Santa Fe Opera
+                    </div>
+                    <div class="category-badge">Opera</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850131810</span>
+                        <span><strong>Year:</strong> 2024</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850131810" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="alt">
+                        Albuquerque Little Theatre
+                    </div>
+                    <div class="category-badge">Theater</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850127297</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850127297" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="auxdog">
+                        Aux Dog Theatre Nob Hill
+                    </div>
+                    <div class="category-badge">Theater</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 208061200</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=208061200" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="taos">
+                        Taos Center for the Arts
+                    </div>
+                    <div class="category-badge">Theater</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850113452</span>
+                        <span><strong>Year:</strong> 2024</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850113452" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="nmactorslab">
+                        New Mexico Actors Lab
+                    </div>
+                    <div class="category-badge">Theater</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 474400214</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=474400214" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Museum/Visual Arts -->
+        <div class="section">
+            <div class="section-title">🎨 Museum/Visual Arts (5)</div>
+            <div class="org-grid">
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="abqmuseum">
+                        Albuquerque Museum Foundation
+                    </div>
+                    <div class="category-badge">Museum</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850400225</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850400225" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="okeeffe">
+                        Georgia O'Keeffe Museum
+                    </div>
+                    <div class="category-badge">Museum</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850426998</span>
+                        <span><strong>Year:</strong> 2024</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850426998" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="site">
+                        SITE Santa Fe
+                    </div>
+                    <div class="category-badge">Museum</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850420883</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850420883" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="artscrafts">
+                        NM Arts and Crafts Fair
+                    </div>
+                    <div class="category-badge">Visual Arts</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850167887</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850167887" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="northern">
+                        Northern NM Regional Art Center
+                    </div>
+                    <div class="category-badge">Arts Center</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850304852</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850304852" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Music -->
+        <div class="section">
+            <div class="section-title">🎵 Music (7)</div>
+            <div class="org-grid">
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="sfchamber">
+                        Santa Fe Chamber Music Festival
+                    </div>
+                    <div class="category-badge">Music</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850306222</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850306222" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="nmphil">
+                        New Mexico Philharmonic
+                    </div>
+                    <div class="category-badge">Orchestra</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 452361831</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=452361831" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="jazz">
+                        NM Jazz Workshop
+                    </div>
+                    <div class="category-badge">Music</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850247988</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850247988" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="ensemble">
+                        Ensemble Music New Mexico
+                    </div>
+                    <div class="category-badge">Music</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 470910372</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=470910372" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="musicguild">
+                        Music Guild of New Mexico
+                    </div>
+                    <div class="category-badge">Music</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 271202542</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=271202542" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="folk">
+                        NM Folk Music and Dance Society
+                    </div>
+                    <div class="category-badge">Music</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 850380660</span>
+                        <span><strong>Year:</strong> 2023</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=850380660" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-name">
+                        <input type="checkbox" class="org-check" data-org="musiccomm">
+                        NM Music Commission Foundation
+                    </div>
+                    <div class="category-badge">Music</div>
+                    <div class="org-meta">
+                        <span><strong>FEIN:</strong> 900538104</span>
+                        <span><strong>Year:</strong> 2024</span>
+                    </div>
+                    <a href="https://secure.nmag.gov/CharitySearch/CharityDetail.aspx?FEIN=900538104" target="_blank" class="org-link">Open in NM AG Portal →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('.org-check');
+        const downloadedEl = document.getElementById('downloaded');
+        const remainingEl = document.getElementById('remaining');
+        const percentEl = document.getElementById('percent');
+        const progressBar = document.getElementById('progressBar');
+
+        function updateStats() {
+            const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const total = checkboxes.length;
+            const remaining = total - checked;
+            const percent = Math.round((checked / total) * 100);
+
+            downloadedEl.textContent = checked;
+            remainingEl.textContent = remaining;
+            percentEl.textContent = percent + '%';
+            progressBar.style.width = percent + '%';
+
+            // Update card styling
+            checkboxes.forEach(cb => {
+                const card = cb.closest('.org-card');
+                if (cb.checked) {
+                    card.classList.add('downloaded');
+                } else {
+                    card.classList.remove('downloaded');
+                }
+            });
+
+            // Save to localStorage
+            const state = Array.from(checkboxes).map(cb => cb.checked);
+            localStorage.setItem('orgChecks', JSON.stringify(state));
+        }
+
+        // Load saved state
+        const saved = localStorage.getItem('orgChecks');
+        if (saved) {
+            const state = JSON.parse(saved);
+            checkboxes.forEach((cb, i) => {
+                if (state[i]) cb.checked = true;
+            });
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateStats);
+        });
+
+        updateStats();
+    </script>
+</body>
+</html>
